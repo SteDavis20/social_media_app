@@ -3,18 +3,25 @@ import { StyleSheet, Text, View, Image } from "react-native";
 
 import UserPost from "../Components/UserPost";
 
+const profilePictureImage =
+  "https://media.licdn.com/dms/image/C4E03AQHrZ6y3pdUm9w/profile-displayphoto-shrink_800_800/0/1612633056823?e=2147483647&v=beta&t=vC6E6JANgdxmZTnnLPc7JWNW_MTHOjGadm1ODUhu9qE";
+
 export default function Profile() {
   return (
     <View style={styles.container}>
       <Text>Profile page!</Text>
       {/* Profile picture */}
-      <Image
-        source={require("../assets/icon.png")}
-        style={styles.profilePicture}
-      />
-      {/* Username */}
-      <Text>@Joe_Bloggs</Text>
-
+      <View style={{ flexDirection: "row" }}>
+        <Image
+          // source={require("../assets/icon.png")}
+          source={{
+            uri: profilePictureImage,
+          }}
+          style={styles.profilePicture}
+        />
+        {/* Username */}
+        <Text>@Joe_Bloggs</Text>
+      </View>
       <View style={{ flexDirection: "row" }}>
         {/* Number of posts */}
         <Text style={styles.statistic}>18 posts</Text>
@@ -71,9 +78,11 @@ export default function Profile() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: "#eee",
+    padding: 30,
+    paddingTop: 80,
+    // alignItems: "center",
+    // justifyContent: "center",
   },
   profilePicture: { width: 100, height: 100 },
   statistic: { padding: 10 },
