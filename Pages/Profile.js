@@ -1,6 +1,8 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, Image } from "react-native";
 
+import UserPost from "../Components/UserPost";
+
 export default function Profile() {
   return (
     <View style={styles.container}>
@@ -33,6 +35,32 @@ export default function Profile() {
       {/* Highlights */}
 
       {/* Display posts */}
+      {/* Bio */}
+      <View style={{ paddingTop: 40 }}>
+        <Text style={{ textAlign: "left" }}>Posts</Text>
+      </View>
+      <View
+        style={{
+          padding: 10,
+          flexDirection: "row",
+          justifyContent: "space-around",
+        }}
+      >
+        <UserPost></UserPost>
+        <UserPost></UserPost>
+        <UserPost></UserPost>
+      </View>
+      <View
+        style={{
+          padding: 10,
+          flexDirection: "row",
+          justifyContent: "space-around",
+        }}
+      >
+        <UserPost></UserPost>
+        <UserPost></UserPost>
+        <UserPost></UserPost>
+      </View>
       {/* Edit profile */}
       {/* Logout */}
       <StatusBar style="auto" />
