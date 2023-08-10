@@ -1,15 +1,46 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Image } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  FlatList,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 
-import UserPost from "../Components/UserPost";
+import { useState } from "react";
+
+import ProfilePost from "../Components/ProfilePost";
+import MyButton from "../Components/MyButton";
 
 const profilePictureImage =
   "https://media.licdn.com/dms/image/C4E03AQHrZ6y3pdUm9w/profile-displayphoto-shrink_800_800/0/1612633056823?e=2147483647&v=beta&t=vC6E6JANgdxmZTnnLPc7JWNW_MTHOjGadm1ODUhu9qE";
 
 export default function Profile() {
+  const [showFollowers, setShowFollowers] = useState(false);
+
+  const dummyFollowersData = [
+    { id: 1, name: "Dave" },
+    { id: 2, name: "Michael" },
+    { id: 3, name: "Shane" },
+    { id: 4, name: "Laura" },
+  ];
+  const dummyFollowingData = [
+    { id: 1, name: "Liam" },
+    { id: 2, name: "Michael" },
+    { id: 3, name: "Alan" },
+    { id: 4, name: "Laura" },
+  ];
+
+  const displayFollowers = ({ item }) => (
+    <View style={styles.followerItem}>
+      <Text>{item.name}</Text>
+    </View>
+  );
+
   return (
-    <View style={styles.container}>
-      <Text>Profile page!</Text>
+    <ScrollView style={styles.container}>
       {/* Profile picture */}
       <View style={{ flexDirection: "row" }}>
         <Image
@@ -20,14 +51,36 @@ export default function Profile() {
           style={styles.profilePicture}
         />
         {/* Username */}
-        <Text>@Joe_Bloggs</Text>
+        <Text style={{ paddingLeft: 20 }}>@Joe_Bloggs</Text>
       </View>
-      <View style={{ flexDirection: "row" }}>
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
         {/* Number of posts */}
         <Text style={styles.statistic}>18 posts</Text>
 
         {/* Number of followers */}
-        <Text style={styles.statistic}>100 followers</Text>
+        <TouchableOpacity
+          onPress={() => {
+            setShowFollowers(!showFollowers);
+          }}
+        >
+          <View>
+            <Text>100 Followers</Text>
+          </View>
+          {/* <Text style={styles.statistic}>100 followers</Text> */}
+        </TouchableOpacity>
+        {showFollowers && (
+          <FlatList
+            data={dummyFollowersData}
+            renderItem={displayFollowers}
+            keyExtractor={(item) => item.id}
+          />
+        )}
 
         {/* Number of following */}
         <Text style={styles.statistic}>110 following</Text>
@@ -53,9 +106,9 @@ export default function Profile() {
           justifyContent: "space-around",
         }}
       >
-        <UserPost></UserPost>
-        <UserPost></UserPost>
-        <UserPost></UserPost>
+        <ProfilePost></ProfilePost>
+        <ProfilePost></ProfilePost>
+        <ProfilePost></ProfilePost>
       </View>
       <View
         style={{
@@ -64,14 +117,14 @@ export default function Profile() {
           justifyContent: "space-around",
         }}
       >
-        <UserPost></UserPost>
-        <UserPost></UserPost>
-        <UserPost></UserPost>
+        <ProfilePost></ProfilePost>
+        <ProfilePost></ProfilePost>
+        <ProfilePost></ProfilePost>
       </View>
       {/* Edit profile */}
       {/* Logout */}
       <StatusBar style="auto" />
-    </View>
+    </ScrollView>
   );
 }
 
@@ -84,9 +137,19 @@ const styles = StyleSheet.create({
     // alignItems: "center",
     // justifyContent: "center",
   },
-  profilePicture: { width: 100, height: 100 },
+  profilePicture: {
+    width: "25%",
+    height: 80,
+    borderRadius: 20,
+    borderWidth: 2,
+  },
   statistic: { padding: 10 },
   username: {},
   name: {},
   bio: {},
+  followerItem: {
+    padding: 10,
+    borderBottomWidth: 1,
+    borderColor: "#ccc",
+  },
 });
